@@ -1,5 +1,19 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Available Endpoints
+
+- `GET /api/hello` - Returns a JSON response with a message.
+- `POST /api/hello` - Returns an image response.
+
+## Available Styles of Images
+
+- Avatar Images
+    - `64x64`
+    - Square Images
+    - Pre-rounded Images
+    - Solid Colors
+    - Gradient Colors
+
 ## Getting Started
 
 First, run the development server:
