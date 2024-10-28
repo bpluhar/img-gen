@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export default function ImageBuilder(color, size, chars, fontSize) {
+export default function ImageBuilder(bgColor, fgColor, size, chars, fontSize) {
   let textSize;
   switch (fontSize) {
     case "sm":
@@ -22,7 +22,7 @@ export default function ImageBuilder(color, size, chars, fontSize) {
   return new ImageResponse(
     (
       <div
-        tw={`text-${color} text-${textSize} bg-white w-full h-full text-center justify-center items-center`}
+        tw={`bg-${bgColor} text-${fgColor} text-${textSize} w-full h-full text-center justify-center items-center`}
       >
         {chars}
       </div>

@@ -16,23 +16,26 @@ const colors = [
 ];
 
 interface AvatarRequestBody {
-  color?: string;
-  size: string;
-  chars: string;
+  bgColor?: string;
+  fgColor?: string;
+  imgSize: string;
   fontSize?: string;
+  chars: string;
 }
 
 export async function POST(request: Request) {
   const formData = await request.formData();
   const body: AvatarRequestBody = {
-    color: formData.get("color")?.toString(),
-    size: formData.get("size")?.toString() || "",
-    chars: formData.get("chars")?.toString() || "",
+    bgColor: formData.get("bg-color")?.toString(),
+    fgColor: formData.get("fg-color")?.toString(),
+    imgSize: formData.get("img-size")?.toString() || "",
     fontSize: formData.get("font-size")?.toString() || "md", // Default to "md"
+    chars: formData.get("chars")?.toString() || "",
   };
 
-  let color = body.color;
-  const size = body.size;
+  let bgColor = body.bgColor;
+  let fgColor = body.fgColor;
+  const size = body.imgSize;
   const chars = body.chars;
   const fontSize = body.fontSize;
 
@@ -45,7 +48,7 @@ export async function POST(request: Request) {
     });
   }
 
-  if (!color) {
+  if (!bgColor) {
     // No color provided, returning random color
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const image = await ImageBuilder(randomColor, size, chars, fontSize);
@@ -59,10 +62,10 @@ export async function POST(request: Request) {
     });
   } else {
     // Convert to lowercase for consistency
-    color = color.toLowerCase();
+    bgColor = bgColor.toLowerCase();
 
     const colorPattern = /-([0-9]{2,3})$/;
-    const match = color.match(colorPattern);
+    const match = bgColor.match(colorPattern);
 
     if (match) {
       const number = parseInt(match[1]);
@@ -74,7 +77,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const image = await ImageBuilder(color, size, chars, fontSize);
+    const image = await ImageBuilder(bgColor, fgColor, size, chars, fontSize);
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
