@@ -2,9 +2,6 @@ import { ImageResponse } from "next/og";
 
 export default function ImageBuilder(color, size) {
 
-
-   
-
     return new ImageResponse(
         (
           <div
