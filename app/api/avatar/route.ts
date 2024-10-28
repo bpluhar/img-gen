@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   };
 
   let bgColor = body.bgColor;
-  let fgColor = body.fgColor;
+  const fgColor = body.fgColor;
   const size = body.imgSize;
   const chars = body.chars;
   const fontSize = body.fontSize;
