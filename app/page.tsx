@@ -5,13 +5,13 @@ export default function Home() {
     <>
       <h1 className="text-2xl font-bold p-4">
         Access with POST Request to{" "}
-        <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold text-red-600">
+        <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded-lg font-semibold text-red-600">
           /api/avatar
         </code>
 
       <div className="mt-4 text-base">
         <p className="mb-2 font-semibold">Example POST request:</p>
-          <pre className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded">
+          <pre className="bg-black/[.05] dark:bg-white/[.06] p-2 w-full overflow-x-auto rounded-lg">
             {`fetch('https://ez-avatar.vercel.app/api/avatar', {
   method: 'POST',
   body: FormData {
