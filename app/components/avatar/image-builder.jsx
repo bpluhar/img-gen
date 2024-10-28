@@ -1,6 +1,13 @@
 import { ImageResponse } from "next/og";
 
-export default function ImageBuilder(bgColor, fgColor, size, chars, fontSize, rounded) {
+export default function ImageBuilder(
+  bgColor,
+  fgColor,
+  size,
+  chars,
+  fontSize,
+  rounded,
+) {
   let textSize;
   switch (fontSize) {
     case "sm":
@@ -22,7 +29,9 @@ export default function ImageBuilder(bgColor, fgColor, size, chars, fontSize, ro
   return new ImageResponse(
     (
       <div
-        tw={`bg-${bgColor} text-${fgColor} text-${textSize} w-full h-full text-center justify-center items-center ${rounded ? "rounded-full" : ""}`}
+        tw={`bg-${bgColor} text-${fgColor} text-${textSize} w-full h-full text-center justify-center items-center ${
+          rounded ? "rounded-full" : ""
+        }`}
       >
         {chars}
       </div>

@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -9,8 +9,8 @@ export default function Home() {
           /api/avatar
         </code>
 
-      <div className="mt-4 text-base">
-        <p className="mb-2 font-semibold">Example POST request:</p>
+        <div className="mt-4 text-base">
+          <p className="mb-2 font-semibold">Example POST request:</p>
           <pre className="bg-black/[.05] dark:bg-white/[.06] p-2 w-full overflow-x-auto rounded-lg">
             {`fetch('https://ez-avatar.vercel.app/api/avatar', {
   method: 'POST',
@@ -24,12 +24,12 @@ export default function Home() {
   }
 })`}
           </pre>
-      </div>
+        </div>
 
-      <div className="mt-4 text-base">
-        <p className="mb-2 font-semibold">Returned Image:</p>
-        <Image src="/response.webp" alt="bp" width={64} height={64} />
-      </div>
+        <div className="mt-4 text-base">
+          <p className="mb-2 font-semibold">Returned Image:</p>
+          <Image src="/response.webp" alt="bp" width={64} height={64} />
+        </div>
       </h1>
     </>
   );
