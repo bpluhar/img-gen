@@ -21,6 +21,7 @@ interface AvatarRequestBody {
   imgSize: string;
   fontSize?: string;
   chars: string;
+  rounded?: boolean;
 }
 
 export async function POST(request: Request) {
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
     imgSize: formData.get("img-size")?.toString() || "",
     fontSize: formData.get("font-size")?.toString() || "md", // Default to "md"
     chars: formData.get("chars")?.toString() || "",
+    rounded: formData.get("rounded")?.toString() === "true",
   };
 
   let bgColor = body.bgColor;
@@ -38,7 +40,7 @@ export async function POST(request: Request) {
   const size = body.imgSize;
   const chars = body.chars;
   const fontSize = body.fontSize;
-
+  const rounded = body.rounded;
   if (
     !size || !/^\d+$/.test(size) || parseInt(size) > 1000 || parseInt(size) < 1
   ) {
@@ -51,7 +53,7 @@ export async function POST(request: Request) {
   if (!bgColor) {
     // No color provided, returning random color
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const image = await ImageBuilder(randomColor, size, chars, fontSize);
+    const image = await ImageBuilder(randomColor, size, chars, fontSize, rounded);
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
@@ -77,7 +79,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const image = await ImageBuilder(bgColor, fgColor, size, chars, fontSize);
+    const image = await ImageBuilder(bgColor, fgColor, size, chars, fontSize, rounded);
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
