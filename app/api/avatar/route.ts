@@ -15,21 +15,40 @@ const colors = [
   "white",
 ];
 
+interface AvatarRequestBody {
+  color?: string;
+  size: string;
+  chars: string;
+  fontSize?: string;
+}
+
 export async function POST(request: Request) {
-  const body = await request.formData();
+  const formData = await request.formData();
+  const body: AvatarRequestBody = {
+    color: formData.get("color")?.toString(),
+    size: formData.get("size")?.toString() || "",
+    chars: formData.get("chars")?.toString() || "",
+    fontSize: formData.get("font-size")?.toString() || "md", // Default to "md"
+  };
 
-  let color = body.get("color") as string;
-  const size = body.get("size") as string;
+  let color = body.color;
+  const size = body.size;
+  const chars = body.chars;
+  const fontSize = body.fontSize;
 
-  if (!size) {
-    // No size provided, returning error
-    return NextResponse.json({ error: "Missing size" });
+  if (
+    !size || !/^\d+$/.test(size) || parseInt(size) > 1000 || parseInt(size) < 1
+  ) {
+    // No size provided or invalid size, returning error
+    return NextResponse.json({
+      error: "Size must be a number between 1 and 1000",
+    });
   }
 
   if (!color) {
-    // No color provided, returning random image
+    // No color provided, returning random color
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const image = await ImageBuilder(randomColor, size);
+    const image = await ImageBuilder(randomColor, size, chars, fontSize);
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
@@ -55,7 +74,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const image = await ImageBuilder(color, size);
+    const image = await ImageBuilder(color, size, chars, fontSize);
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
