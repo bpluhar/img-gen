@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 export default function ImageBuilder(
   bgColor,
   fgColor,
-  size = 128,
+  size,
   chars,
   fontSize = "md",
   rounded,

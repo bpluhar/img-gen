@@ -53,12 +53,12 @@ export async function POST(request: Request) {
   if (!bgColor) {
     // No color provided, returning random color
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    const image = await ImageBuilder(
+    const image = ImageBuilder(
       randomColor,
       size,
       chars,
       fontSize,
-      rounded,
+      rounded ? "true" : "false",
     );
     const imageBuffer = await image.arrayBuffer();
 
@@ -85,14 +85,15 @@ export async function POST(request: Request) {
       }
     }
 
-    const image = await ImageBuilder(
+    const image = ImageBuilder(
       bgColor,
       fgColor,
       size,
       chars,
       fontSize,
-      rounded,
+      rounded ? "true" : "false",
     );
+
     const imageBuffer = await image.arrayBuffer();
 
     return new NextResponse(imageBuffer, {
