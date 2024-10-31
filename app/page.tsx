@@ -1,10 +1,18 @@
-import Image from "next/image";
+// import AvatarGenerator from '@/app/components/avatar/avatar-generator';
+import AvatarForm from '@/app/components/avatar/avatar-form';
+import Image from 'next/image';
+
 
 export default function Home() {
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8">Avatar Generator API</h1>
+      <h1 className="text-4xl font-bold mb-8">Avatar Generator</h1>
       
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4">Generate Your Avatar</h2>
+        <AvatarForm />
+      </section>
+
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4">Endpoint</h2>
         <code className="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-lg font-mono text-red-500">
@@ -136,7 +144,7 @@ export default function Home() {
               </div>
               <span className="text-gray-400">{`}`}</span>
             </div>
-            <span className="text-gray-400">});</span>
+            <span className="text-gray-400">{`})`}</span>
           </div>
         </div>
       </section>

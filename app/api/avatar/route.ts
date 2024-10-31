@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import ImageBuilder from "@/app/components/avatar/image-builder";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 // Pre-define colors as a constant Set for O(1) lookup
 const VALID_COLORS = new Set([
   "red",
@@ -74,7 +77,7 @@ export async function POST(request: Request) {
       imgSize,
       fontSize: formData.get("font-size")?.toString() || "md",
       chars: formData.get("chars")?.toString() || "",
-      rounded: formData.get("rounded")?.toString() === "true",
+      rounded: formData.get("rounded")?.toString().toLowerCase() === "true",
     };
 
     // Validate color number
