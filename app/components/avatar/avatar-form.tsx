@@ -86,6 +86,10 @@ export default function AvatarForm() {
       ? `${formState.bgColor}-${formState.bgShade}`
       : formState.bgColor;
 
+    const fgColorFull = formState.fgShade
+      ? `${formState.fgColor}-${formState.fgShade}`
+      : formState.fgColor;
+
     // Validation logic from route.ts (lines 50-55)
     if (!validateColorNumber(bgColorFull)) {
       setError("Color number must be divisible by 50");
@@ -94,7 +98,7 @@ export default function AvatarForm() {
 
     const formData = new FormData();
     formData.append("bg-color", bgColorFull);
-    formData.append("fg-color", formState.fgColor);
+    formData.append("fg-color", fgColorFull);
     formData.append("img-size", formState.imgSize);
     formData.append("font-size", formState.fontSize);
     formData.append("chars", formState.chars);
@@ -163,6 +167,40 @@ export default function AvatarForm() {
                 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               >
                 {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900].map(
+                  (shade) => <option key={shade} value={shade}>{shade}</option>,
+                )}
+              </select>
+            )}
+          </div>
+
+          {/* Foreground Color */}
+          <div className="space-y-2">
+            <label className="block text-sm font-medium dark:text-gray-200">
+              Foreground Color
+            </label>
+            <select
+              value={formState.fgColor}
+              onChange={(e) =>
+                setFormState((prev) => ({ ...prev, fgColor: e.target.value }))}
+              className="w-full rounded-md border border-gray-300 dark:border-gray-600 p-2 
+              bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+            >
+              {Array.from(VALID_COLORS).map((color) => (
+                <option key={color} value={color}>{color}</option>
+              ))}
+            </select>
+            {!["black", "white"].includes(formState.fgColor) && (
+              <select
+                value={formState.fgShade}
+                onChange={(e) =>
+                  setFormState((prev) => ({
+                    ...prev,
+                    fgShade: e.target.value,
+                  }))}
+                className="w-full rounded-md border border-gray-300 dark:border-gray-600 p-2 
+                bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+              >
+                {[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950].map(
                   (shade) => <option key={shade} value={shade}>{shade}</option>,
                 )}
               </select>
