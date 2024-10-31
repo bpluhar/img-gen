@@ -23,7 +23,7 @@ Generate custom avatars with the following parameters:
 - Tailwind color variants: Must use numbers divisible by 50 (e.g., red-500)
 
 #### Example Usage
-`curl -X POST -F "img-size=64" -F "bg-color=blue-500" -F "chars=AB" https://your-domain.com/api/avatar`
+`curl -X POST -F "img-size=64" -F "bg-color=blue-500" -F "chars=AB" https://ez-avatar.vercel.app/api/avatar`
 
 ## Development
 
