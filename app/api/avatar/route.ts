@@ -24,11 +24,15 @@ interface AvatarRequestBody {
   rounded?: boolean;
 }
 
+function RandomColor() {
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
 export async function POST(request: Request) {
   const formData = await request.formData();
   const body: AvatarRequestBody = {
-    bgColor: formData.get("bg-color")?.toString(),
-    fgColor: formData.get("fg-color")?.toString(),
+    bgColor: formData.get("bg-color")?.toString() || RandomColor(),
+    fgColor: formData.get("fg-color")?.toString() || "white",
     imgSize: formData.get("img-size")?.toString() || "",
     fontSize: formData.get("font-size")?.toString() || "md", // Default to "md"
     chars: formData.get("chars")?.toString() || "",
