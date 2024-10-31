@@ -23,13 +23,15 @@ export default function ImageBuilder(
     "6xl": { fontSize: 60, lineHeight: 60 },
     "7xl": { fontSize: 72, lineHeight: 72 },
     "8xl": { fontSize: 96, lineHeight: 96 },
-    "9xl": { fontSize: 128, lineHeight: 128 }
+    "9xl": { fontSize: 128, lineHeight: 128 },
   };
 
   const typographySettings = typography[fontSize] || typography.md;
-  
+
   const calculatedFontSize = Math.round(typographySettings.fontSize * scale);
-  const calculatedLineHeight = Math.round(typographySettings.lineHeight * scale);
+  const calculatedLineHeight = Math.round(
+    typographySettings.lineHeight * scale,
+  );
 
   return new ImageResponse(
     (
