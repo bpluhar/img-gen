@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import ImageBuilder from "@/app/components/avatar/image-builder";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 // Pre-define colors as a constant Set for O(1) lookup

@@ -33,8 +33,6 @@ export default function ImageBuilder(
     typographySettings.lineHeight * scale,
   );
 
-
-  
   if (rounded === "true") {
     rounded = true;
   } else {
