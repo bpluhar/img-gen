@@ -1,63 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with
-[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Avatar Generator API
 
-## Available Endpoints
+A Next.js project providing dynamic avatar generation through a simple API endpoint.
 
-- `GET /api/hello` - Returns a JSON response with a message.
-- `POST /api/hello` - Returns an image response.
+## API Endpoints
 
-## Available Styles of Images
+### Avatar Generation
+`POST /api/avatar`
 
-- Avatar Images
-  - `64x64`
-  - Square Images
-  - Pre-rounded Images
-  - Solid Colors
-  - Gradient Colors
+Generate custom avatars with the following parameters:
 
-## Getting Started
+| Parameter  | Required | Default | Description                                    |
+|------------|----------|---------|------------------------------------------------|
+| img-size   | Yes      | -       | Image size (1-1000px)                         |
+| bg-color   | No       | Random  | Background color (Tailwind colors supported)   |
+| fg-color   | No       | white   | Foreground/text color                         |
+| font-size  | No       | md      | Text size                                     |
+| chars      | No       | ""      | Characters to display                         |
+| rounded    | No       | false   | Whether to round the avatar corners           |
 
-First, run the development server:
+#### Color Support
+- Basic colors: red, blue, green, yellow, purple, orange, pink, brown, gray, black, white
+- Tailwind color variants: Must use numbers divisible by 50 (e.g., red-500)
 
-```bash
+#### Example Usage
+`curl -X POST -F "img-size=64" -F "bg-color=blue-500" -F "chars=AB" https://your-domain.com/api/avatar`
+
+## Development
+
+1. Install dependencies:
+bash
+npm install
+or
+yarn install
+or
+pnpm install
+or
+bun install
+
+2. Run the development server:
+
 npm run dev
-# or
+or
 yarn dev
-# or
+or
 pnpm dev
-# or
+or
 bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
 
-You can start editing the page by modifying `app/page.tsx`. The page
-auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) to view the application
 
-This project uses
-[`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
-to automatically optimize and load [Geist](https://vercel.com/font), a new font
-family for Vercel.
+## Features
 
-## Learn More
+- Dynamic avatar generation
+- Customizable sizes (1-1000px)
+- Tailwind CSS color support
+- Custom text support
+- Rounded corner option
+- WebP image format
+- Built-in caching (1 year cache duration)
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [Next.js](https://nextjs.org)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com)
 
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js) - your
-feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+Deploy easily with [Vercel](https://vercel.com):
 
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/your-repo-name)
 
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+## License
+
+MIT License - Feel free to use this project for personal or commercial purposes.
