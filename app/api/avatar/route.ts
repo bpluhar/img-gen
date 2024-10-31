@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     rounded: formData.get("rounded")?.toString() === "true",
   };
 
-  let bgColor = body.bgColor;
+  const bgColor = body.bgColor!.toLowerCase();
   const fgColor = body.fgColor;
   const size = body.imgSize;
   const chars = body.chars;
@@ -53,10 +53,6 @@ export async function POST(request: Request) {
       error: "Size must be a number between 1 and 1000",
     });
   }
-
-  
-  // Convert to lowercase for consistency
-  bgColor = bgColor!.toLowerCase();
 
   const colorPattern = /-([0-9]{2,3})$/;
   const match = bgColor.match(colorPattern);
