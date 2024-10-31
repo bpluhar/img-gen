@@ -3,8 +3,17 @@ import ImageBuilder from "@/app/components/avatar/image-builder";
 
 // Pre-define colors as a constant Set for O(1) lookup
 const VALID_COLORS = new Set([
-  'red', 'blue', 'green', 'yellow', 'purple',
-  'orange', 'pink', 'brown', 'gray', 'black', 'white'
+  "red",
+  "blue",
+  "green",
+  "yellow",
+  "purple",
+  "orange",
+  "pink",
+  "brown",
+  "gray",
+  "black",
+  "white",
 ]);
 
 // Constants for validation
@@ -31,10 +40,10 @@ const getRandomColor = () => {
 // Validation helper
 const validateSize = (size: string): boolean => {
   const parsedSize = parseInt(size);
-  return Boolean(size) && 
-         /^\d+$/.test(size) && 
-         parsedSize <= MAX_SIZE && 
-         parsedSize >= MIN_SIZE;
+  return Boolean(size) &&
+    /^\d+$/.test(size) &&
+    parsedSize <= MAX_SIZE &&
+    parsedSize >= MIN_SIZE;
 };
 
 // Validation helper
@@ -48,29 +57,31 @@ const validateColorNumber = (color: string): boolean => {
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
-    
+
     // Extract and validate size first to fail fast
     const imgSize = formData.get("img-size")?.toString() || "";
     if (!validateSize(imgSize)) {
       return NextResponse.json({
-        error: `Size must be a number between ${MIN_SIZE} and ${MAX_SIZE}`
+        error: `Size must be a number between ${MIN_SIZE} and ${MAX_SIZE}`,
       }, { status: 400 });
     }
 
     // Build body with defaults
     const body: AvatarRequestBody = {
-      bgColor: (formData.get("bg-color")?.toString() || getRandomColor()).toLowerCase(),
+      bgColor: (formData.get("bg-color")?.toString() || getRandomColor())
+        .toLowerCase(),
       fgColor: formData.get("fg-color")?.toString() || "white",
       imgSize,
       fontSize: formData.get("font-size")?.toString() || "md",
       chars: formData.get("chars")?.toString() || "",
-      rounded: formData.get("rounded")?.toString() === "true"
+      rounded: formData.get("rounded")?.toString() === "true",
     };
 
     // Validate color number
-    if (!validateColorNumber(body.bgColor)) {
+    if (!validateColorNumber(body.bgColor!)) {
       return NextResponse.json({
-        error: "Color number must be divisible by 50. See TailwindCSS colors for reference: https://tailwindcss.com/docs/customizing-colors"
+        error:
+          "Color number must be divisible by 50. See TailwindCSS colors for reference: https://tailwindcss.com/docs/customizing-colors",
       }, { status: 400 });
     }
 
@@ -81,7 +92,7 @@ export async function POST(request: Request) {
       body.imgSize,
       body.chars,
       body.fontSize,
-      body.rounded ? "true" : "false"
+      body.rounded ? "true" : "false",
     );
 
     const imageBuffer = await image.arrayBuffer();
@@ -93,16 +104,16 @@ export async function POST(request: Request) {
       },
     });
   } catch (error) {
-    console.error('Avatar generation error:', error);
-    return NextResponse.json({ 
-      error: "Failed to generate avatar" 
+    console.error("Avatar generation error:", error);
+    return NextResponse.json({
+      error: "Failed to generate avatar",
     }, { status: 500 });
   }
 }
 
 export async function GET() {
   return NextResponse.json(
-    { error: "Method not allowed" }, 
-    { status: 405 }
+    { error: "Method not allowed" },
+    { status: 405 },
   );
 }
